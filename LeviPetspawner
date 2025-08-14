@@ -1,0 +1,24 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local window = Rayfield:CreateWindow({Name = "Pet Spawner", LoadingTitle = "Grow a Garden", LoadingSubtitle = "by You"})
+
+local pets = {"Raccoon","CandyBlossom","Fox","Bee"}
+
+local tab = window:CreateTab("Spawner")
+
+tab:CreateDropdown({
+    Name = "Spawn a Pet",
+    Options = pets,
+    CurrentOption = "",
+    Callback = function(pet)
+        game.ReplicatedStorage.SpawnPetEvent:FireServer(pet)
+    end
+})
+
+tab:CreateButton({
+    Name = "Spawn All Pets",
+    Callback = function()
+        for _,pet in ipairs(pets) do
+            game.ReplicatedStorage.SpawnPetEvent:FireServer(pet)
+        end
+    end
+})
